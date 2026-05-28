@@ -40,6 +40,7 @@ Exemplos de DISP:
 - `DISP=OLD` == Acesso exclusivo ao dataset (bloqueia outros jobs)
 - `DISP=(MOD,DELETE,DELETE)` == Append, mas apaga o dataset se ocorrer erro
 - `DISP=(OLD,UNCATLG,KEEP)` == Remove do catálogo, mas mantém o dataset físico
+- `DISP=(OLD,DELETE)` == Usado quando for deletar o arquivo
 
 
  **DCB (Data Control Block)** 
