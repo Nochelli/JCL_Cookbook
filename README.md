@@ -23,7 +23,9 @@ _Basicamentes são JOBS para manipulação de datasets, incluindo o gerenciament
 - SYSUT2    → arquivo de saida
 
   
-**DCB (Data Control Block)**
+**DCB (Data Control Block)** 
+
+DCB=(RECFM=FB,LRECL=80,BLKSIZE=0)
 - RECFM=FB   → Fixed Block
 - LRECL      → tamanho do registro
 - BLKSIZE    → tamanho do bloco
