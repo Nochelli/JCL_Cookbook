@@ -22,15 +22,6 @@ _Basicamentes são JOBS para manipulação de datasets, incluindo o gerenciament
 - SYSUT1    → arquivo de entrada
 - SYSUT2    → arquivo de saida
 
-  
-**DCB (Data Control Block)** 
-
-DCB=(RECFM=FB,LRECL=80,BLKSIZE=0)
-- RECFM=FB   → Fixed Block
-- LRECL      → tamanho do registro
-- BLKSIZE    → tamanho do bloco
-
-
 ## Como funciona o DISP 
 
 - **DISP(NEW)**     →  cria dataset novo
@@ -52,6 +43,14 @@ Como funciona as posições:
 - 3º valor = ação em erro
   
  _Exemplo: DISP=(NEW,CATLG,DELETE) == cria → salva → apaga se der erro_
+
+
+ **DCB (Data Control Block)** 
+- RECFM=FB   → Fixed Block
+- LRECL      → tamanho do registro
+- BLKSIZE    → tamanho do bloco
+
+`DCB=(RECFM=FB,LRECL=80,BLKSIZE=0)`
 
 
 
