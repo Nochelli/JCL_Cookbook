@@ -35,7 +35,7 @@ _Basicamentes são JOBS para manipulação de datasets, incluindo o gerenciament
 - **DISP(DELETE)**  →  remove se ocorrer erro
 - **DISP(OLD)**     →  dataset já existente
   
-
+Exemplos de DISP:
 - `DISP=(NEW,CATLG,DELETE)` == Cria dataset novo, cataloga se OK, apaga se falhar
 - `DISP=(NEW,DELETE,DELETE)` == Dataset temporário (não fica no catálogo)
 - `DISP=(NEW,CATLG,KEEP)` == Cria e mantém mesmo se o job falhar
@@ -44,8 +44,7 @@ _Basicamentes são JOBS para manipulação de datasets, incluindo o gerenciament
 - `DISP=(MOD,DELETE,DELETE)` == Append, mas apaga o dataset se ocorrer erro
 - `DISP=(OLD,UNCATLG,KEEP)` == Remove do catálogo, mas mantém o dataset físico
 
-
-
+Como funciona as posições:
 - 1º valor = status do dataset
 - 2º valor = ação normal
 - 3º valor = ação em erro
