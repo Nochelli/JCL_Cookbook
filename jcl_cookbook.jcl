@@ -5,13 +5,13 @@
 //            SPACE=(CYL,(1,1)),UNIT=SYSDA,
 //            DCB=(RECFM=FB,LRECL=80,BLKSIZE=0)
 
-//*IEFBR14 = deletar um DS.
+//*IEFBR14 = Deletar um DS.
 //XXXXXX   JOB (JEFF),'DELETE DS',CLASS=A,MSGCLASS=X,REGION=6M
 //STEP1    EXEC PGM=IEFBR14
 //DD1      DD DSN=XXXXXX.XXXXXX.XXXXXX,DISP=(OLD,DELETE)
 
 
-//*IEBGENER = copiar um DS.
+//*IEBGENER = Copiar um DS.
 //XXXXXX   JOB (JEFF),'COPIA DS',CLASS=A,MSGCLASS=X,REGION=6M
 //STEP1    EXEC PGM=IEBGENER                       
 //SYSPRINT DD SYSOUT=*                                          
