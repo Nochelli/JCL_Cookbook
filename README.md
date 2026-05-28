@@ -5,11 +5,9 @@
 
 ## Utilitários z/OS IBM 
 
-Reuni neste repositório os principais **utilitários IBM** utilizados no ambiente z/OS, com base em estudos e experiências práticas no dia a dia com Mainframe.
+Com base em estudos e experiências práticas no dia a dia com Mainframe, reuni neste repositório os principais **utilitários IBM**, com objetivo de usar como referência para consultas rápidas, estudo de **JCL (Job Control Language)** e entendimento dos utilitários mais comuns em ambientes batch corporativos.
 
-O objetivo é servir como material de referência para consultas rápidas, estudo de **JCL (Job Control Language)** e entendimento dos utilitários mais comuns em ambientes batch corporativos.
-
-_Basicamentes são JOBS para manipulação de datasets, incluindo o gerenciamento de GDGs._
+_Basicamente são JOBS para manipulação de datasets, incluindo o gerenciamento de GDGs._
 
 
 **Fluxo de um Job**
