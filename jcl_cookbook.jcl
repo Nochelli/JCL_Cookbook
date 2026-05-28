@@ -1,6 +1,6 @@
 //* DISP(NEW)     -> cria dataset novo
 //* DISP(CATLG)   -> cataloga se terminar OK
-//* DISP(DELETE)  -> remove/remove se ocorrer erro
+//* DISP(DELETE)  -> remove se ocorrer erro
 //* DISP(OLD)     -> dataset já existente
 //* SPACE         -> espaco alocado
 //* DCB           -> caracteristicas do arquivo
@@ -50,7 +50,7 @@
               SCRATCH)
 /*
 
-//*DFSERA10 = Copiar DS até certa linha especifica.
+//*DFSERA10 = Utilitario IMS, mas pode ser usado para copiar DS até certa linha especifica.
 //XXXXXX   JOB (JEFF),'COPIA',CLASS=A,MSGCLASS=X,REGION=6M
 //STEP1    EXEC PGM=DFSERA10,TIME=100               
 //SYSPRINT DD DUMMY                                               
