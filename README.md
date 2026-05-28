@@ -7,5 +7,8 @@
 
 ## Utilitários z/OS IBM 
 
-Reuni neste repositório os principais utilitários IBM em JCL (Job Control Language) que já utilizei e são muito utilizados no ambiente z/OS.
+Reuni neste repositório os principais utilitários IBM utilizados no ambiente z/OS, com base em estudos e experiências práticas no dia a dia com Mainframe.
 
+O objetivo é servir como material de referência para consultas rápidas, estudo de JCL (Job Control Language) e entendimento dos utilitários mais comuns em ambientes batch corporativos.
+
+_Basicamente: JCLs para manipulação de datasets, além de gerenciamento de GDG e processamento de arquivos._
