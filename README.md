@@ -34,6 +34,7 @@ _Basicamentes são JOBS para manipulação de datasets, incluindo o gerenciament
 - **DISP(NEW)**     →  cria dataset novo
 - **DISP(DELETE)**  →  remove se ocorrer erro
 - **DISP(OLD)**     →  dataset já existente
+  
 
 - `DISP=(NEW,CATLG,DELETE)` == Cria dataset novo, cataloga se OK, apaga se falhar
 - `DISP=(NEW,DELETE,DELETE)` == Dataset temporário (não fica no catálogo)
@@ -42,6 +43,7 @@ _Basicamentes são JOBS para manipulação de datasets, incluindo o gerenciament
 - `DISP=OLD` == Acesso exclusivo ao dataset (bloqueia outros jobs)
 - `DISP=(MOD,DELETE,DELETE)` == Append, mas apaga o dataset se ocorrer erro
 - `DISP=(OLD,UNCATLG,KEEP)` == Remove do catálogo, mas mantém o dataset físico
+
 
 
 - 1º valor = status do dataset
