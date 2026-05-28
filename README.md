@@ -31,37 +31,25 @@ _Basicamentes são JOBS para manipulação de datasets, incluindo o gerenciament
 
 ## DISP 
 
-**- DISP(NEW)**     -> cria dataset novo
-**- DISP(CATLG)**   -> cataloga se terminar OK
+- **DISP(NEW)**     →  cria dataset novo
+- **DISP(DELETE)**  →  remove se ocorrer erro
+- **DISP(OLD)**     →  dataset já existente
 
-**- DISP(DELETE)**  -> remove se ocorrer erro
-
-**- DISP(OLD)**     -> dataset já existente
-
-`DISP=(NEW,CATLG,DELETE)` == Cria dataset novo, cataloga se OK, apaga se falhar
-
-`DISP=(NEW,DELETE,DELETE)` == Dataset temporário (não fica no catálogo)
-
-`DISP=(NEW,CATLG,KEEP)` == Cria e mantém mesmo se o job falhar
-
-`DISP=SHR` == Leitura compartilhada (vários jobs podem acessar)
-
-`DISP=OLD` == Acesso exclusivo ao dataset (bloqueia outros jobs)
-
-`DISP=(MOD,CATLG,KEEP)` == Adiciona dados no final do dataset
-
-`DISP=(MOD,DELETE,DELETE)` == Append, mas apaga o dataset se ocorrer erro
-
-`DISP=(OLD,UNCATLG,KEEP)` == Remove do catálogo, mas mantém o dataset físico
+- `DISP=(NEW,CATLG,DELETE)` == Cria dataset novo, cataloga se OK, apaga se falhar
+- `DISP=(NEW,DELETE,DELETE)` == Dataset temporário (não fica no catálogo)
+- `DISP=(NEW,CATLG,KEEP)` == Cria e mantém mesmo se o job falhar
+- `DISP=SHR` == Leitura compartilhada (vários jobs podem acessar)
+- `DISP=OLD` == Acesso exclusivo ao dataset (bloqueia outros jobs)
+- `DISP=(MOD,DELETE,DELETE)` == Append, mas apaga o dataset se ocorrer erro
+- `DISP=(OLD,UNCATLG,KEEP)` == Remove do catálogo, mas mantém o dataset físico
 
 
-1º valor = status do dataset
+- 1º valor = status do dataset
+- 2º valor = ação normal
+- 3º valor = ação em erro
+- _Exemplo: DISP=(NEW,CATLG,DELETE) == cria → salva → apaga se der erro_
 
-2º valor = ação normal
 
-3º valor = ação em erro
-
-_Exemplo: DISP=(NEW,CATLG,DELETE) == cria → salva → apaga se der erro_
 
 
 
