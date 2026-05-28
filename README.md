@@ -20,6 +20,8 @@ _Basicamente são JOBS para manipulação de datasets, incluindo o gerenciamento
 - SYSUT1    → arquivo de entrada
 - SYSUT2    → arquivo de saida
 
+![IEB](IEB.png)   
+
 ## Como funciona o DISP 
 
 Posições:
