@@ -1,7 +1,6 @@
 # JCL_Cookbook
 ![Mainframe](https://img.shields.io/badge/IBM-z%2FOS-blue)
 ![JCL](https://img.shields.io/badge/JCL-Batch%20Processing-green)
-![Focus](https://img.shields.io/badge/Focus-Mainframe%20Utilities-purple)
 
 ---
 
