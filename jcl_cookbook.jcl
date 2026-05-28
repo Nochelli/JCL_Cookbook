@@ -1,10 +1,11 @@
-//* NEW     -> cria dataset novo
-//* CATLG   -> cataloga se terminar OK
-//* DELETE  -> remove/remove se ocorrer erro
-//* SPACE   -> espaco alocado
-//* DCB     -> caracteristicas do arquivo
-//* SYSUT1  -> arquivo de entrada
-//* SYSUT2  -> arquivo de saida
+//* DISP(NEW)     -> cria dataset novo
+//* DISP(CATLG)   -> cataloga se terminar OK
+//* DISP(DELETE)  -> remove/remove se ocorrer erro
+//* DISP(OLD)     -> dataset já existente
+//* SPACE         -> espaco alocado
+//* DCB           -> caracteristicas do arquivo
+//* SYSUT1        -> arquivo de entrada
+//* SYSUT2        -> arquivo de saida
 
 //*IEFBR14 = Criar um DS.
 //XXXXXX   JOB (JEFF),'CREATE DS',CLASS=A,MSGCLASS=X,REGION=6M
@@ -35,7 +36,18 @@
 //STEP1    EXEC PGM=IDCAMS                                          
 //SYSPRINT DD SYSOUT=*
 //SYSIN    DD *
-DELETE XX.XXXXXX.XXXXXX GDG FORCE                            
+  DELETE XX.XXXXXX.XXXXXX GDG FORCE                            
+/*
+
+//*IDCAMS = Criar um GDG Base
+//XXXXXX JOB (JEFF),'CRIAR GDG',CLASS=A,MSGCLASS=X,REGION=6M
+//STEP1  EXEC PGM=IDCAMS
+//SYSPRINT DD SYSOUT=*
+//SYSIN    DD *
+  DEFINE GDG (NAME(XX.XXXXXX.XXXXXX)
+              LIMIT(10)
+              NOEMPTY
+              SCRATCH)
 /*
 
 //*DFSERA10 = Copiar DS até certa linha especifica.
@@ -47,6 +59,7 @@ DELETE XX.XXXXXX.XXXXXX GDG FORCE
 //            UNIT=SYSDA,SPACE=(CYL,(1,1),RLSE),     
 //            DCB=(RECFM=FB,LRECL=80,BLKSIZE=0)              
 //SYSIN    DD *                                                   
- CONTROL  CNTL  STOPAFT=XXXX //*informar até qual linha copiar.                                      
+  CONTROL  CNTL  STOPAFT=XXXX //*informar até qual linha copiar.            
+/*
 
 
