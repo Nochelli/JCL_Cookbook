@@ -29,7 +29,7 @@ Posições:
 - 2º valor = ação normal
 - 3º valor = ação em erro
   
-DISP=(NEW,CATLG,DELETE) == cria → salva → apaga se der erro_
+_DISP=(NEW,CATLG,DELETE) == cria → salva → apaga se der erro_
 
   
 Exemplos de DISP:
