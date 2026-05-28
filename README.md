@@ -18,22 +18,20 @@ _Basicamentes são JOBS para manipulação de datasets, incluindo o gerenciament
 - DD        → define datasets (entrada/saída)
 - SYSIN     → comandos do utilitário (controla o processamento)
 - SYSPRINT  → logs e saída do processamento
+- SPACE     → espaco alocado
+- SYSUT1    → arquivo de entrada
+- SYSUT2    → arquivo de saida
 
+  
 **DCB (Data Control Block)**
 - RECFM=FB   → Fixed Block
 - LRECL      → tamanho do registro
 - BLKSIZE    → tamanho do bloco
 
-- SPACE         -> espaco alocado
-- DCB           -> caracteristicas do arquivo
-- SYSUT1        -> arquivo de entrada
-- SYSUT2        -> arquivo de saida
-
 
 ## DISP 
 
 **- DISP(NEW)**     -> cria dataset novo
-
 **- DISP(CATLG)**   -> cataloga se terminar OK
 
 **- DISP(DELETE)**  -> remove se ocorrer erro
