@@ -1,14 +1,11 @@
 # JCL_Cookbook
-
-# 📚 Mainframe JCL Utilities
-
 ![Mainframe](https://img.shields.io/badge/IBM-z%2FOS-blue)
 ![JCL](https://img.shields.io/badge/JCL-Batch%20Processing-orange)
 ![Focus](https://img.shields.io/badge/Focus-Mainframe%20Utilities-purple)
 
 ---
 
-## Sobre o projeto
+## Utilitários z/OS IBM 
 
-Este repositório reúne exemplos práticos e explicações dos principais utilitários do ambiente **IBM z/OS (Mainframe)** usados em JCL.
+Reuni neste repositório os principais utilitários IBM em JCL (Job Control Language) que já utilizei e são muito utilizados no ambiente z/OS.
 
