@@ -1,12 +1,3 @@
-//* DISP(NEW)     -> cria dataset novo
-//* DISP(CATLG)   -> cataloga se terminar OK
-//* DISP(DELETE)  -> remove se ocorrer erro
-//* DISP(OLD)     -> dataset já existente
-//* SPACE         -> espaco alocado
-//* DCB           -> caracteristicas do arquivo
-//* SYSUT1        -> arquivo de entrada
-//* SYSUT2        -> arquivo de saida
-
 //*IEFBR14 = Criar um DS.
 //XXXXXX   JOB (JEFF),'CREATE DS',CLASS=A,MSGCLASS=X,REGION=6M
 //STEP1    EXEC PGM=IEFBR14         
