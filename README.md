@@ -12,7 +12,7 @@ O objetivo é servir como material de referência para consultas rápidas, estud
 _Basicamentes são JOBS para manipulação de datasets, incluindo o gerenciamento de GDGs._
 
 
-**Fluxo de um job**
+**Fluxo de um Job**
 - JOB       → define o job batch e inicia a execução
 - EXEC      → chama o programa/utilitário
 - DD        → define datasets (entrada/saída)
@@ -29,7 +29,7 @@ _Basicamentes são JOBS para manipulação de datasets, incluindo o gerenciament
 - BLKSIZE    → tamanho do bloco
 
 
-## DISP 
+## Como funciona o DISP 
 
 - **DISP(NEW)**     →  cria dataset novo
 - **DISP(DELETE)**  →  remove se ocorrer erro
@@ -48,6 +48,7 @@ Como funciona as posições:
 - 1º valor = status do dataset
 - 2º valor = ação normal
 - 3º valor = ação em erro
+  
  _Exemplo: DISP=(NEW,CATLG,DELETE) == cria → salva → apaga se der erro_
 
 
