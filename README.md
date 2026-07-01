@@ -5,9 +5,7 @@
 
 ## Utilitários z/OS IBM 
 
-Com base em estudos e na minha experiência prática trabalhando no dia a dia com Mainframe z/OS, reuni neste repositório `jcl_cookbook.jcl` os principais utilitários IBM como referência para consultas rápidas, para estudo de JCL (Job Control Language) e uso no ambiente z/OS.
-
-_Basicamente são JOBS para manipulação de datasets, incluindo o gerenciamento de GDGs._
+_JOBS para manipulação de datasets, incluindo o gerenciamento de GDGs._
 
 
 **Fluxo de um Job**
