@@ -5,7 +5,7 @@
 
 ## Utilitários z/OS IBM 
 
-_JOBS para manipulação de datasets, incluindo o gerenciamento de GDGs._
+JOBS para manipulação de datasets, incluindo o gerenciamento de GDGs.
 
 
 **Fluxo de um Job**
