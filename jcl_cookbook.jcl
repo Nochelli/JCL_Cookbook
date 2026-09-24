@@ -1,6 +1,7 @@
 //* ------------------------------------------------------------------
 //* IEFBR14 = utilitario nulo. Nao processa registros; e usado com DD
 //* para criar, catalogar ou excluir datasets (DS).
+//* ------------------------------------------------------------------
 //XXXXXX   JOB (JEFF),'CREATE DS',CLASS=A,MSGCLASS=X,REGION=6M
 //STEP1    EXEC PGM=IEFBR14
 //DD1      DD DSN=XXXXXX.XXXXXX.XXXXXX,DISP=(NEW,CATLG,DELETE),
@@ -10,37 +11,6 @@
 //XXXXXX   JOB (JEFF),'DELETE DS',CLASS=A,MSGCLASS=X,REGION=6M
 //STEP1    EXEC PGM=IEFBR14
 //DD1      DD DSN=XXXXXX.XXXXXX.XXXXXX,DISP=(OLD,DELETE)
-
-
-//* ------------------------------------------------------------------
-//* IEHPROGM = utilitario antigo de manutencao de datasets catalogados
-//* e do VTOC. Pode executar operacoes como SCRATCH, RENAME e UNCATLG.
-//* Em ambientes atuais, prefira IDCAMS ou IEFBR14 quando forem
-//* suficientes e confirme as regras de seguranca antes de usar.
-//* ------------------------------------------------------------------
-//* IEHPROGM = Excluir fisicamente um dataset (SCRATCH).
-//XXXXXX   JOB (JEFF),'IEHPROGM SCRATCH',CLASS=A,MSGCLASS=X,REGION=6M
-//STEP1    EXEC PGM=IEHPROGM
-//SYSPRINT DD SYSOUT=*
-//SYSIN    DD *
-  SCRATCH DSNAME=XX.XXXXXX.XXXXXX
-/*
-
-//* IEHPROGM = Retirar um dataset do catalogo sem excluir os dados.
-//XXXXXX   JOB (JEFF),'IEHPROGM UNCATLG',CLASS=A,MSGCLASS=X,REGION=6M
-//STEP1    EXEC PGM=IEHPROGM
-//SYSPRINT DD SYSOUT=*
-//SYSIN    DD *
-  UNCATLG DSNAME=XX.XXXXXX.XXXXXX
-/*
-
-//* IEHPROGM = Renomear um dataset catalogado.
-//XXXXXX   JOB (JEFF),'IEHPROGM RENAME',CLASS=A,MSGCLASS=X,REGION=6M
-//STEP1    EXEC PGM=IEHPROGM
-//SYSPRINT DD SYSOUT=*
-//SYSIN    DD *
-  RENAME DSNAME=XX.XXXXXX.ORIGEM,NEWNAME=XX.XXXXXX.DESTINO
-/*
 
 
 //* ------------------------------------------------------------------
@@ -78,60 +48,6 @@
 //SYSUT2   DD DSN=XXXXXXXXXXXXXXXXXXXX,DISP=(NEW,CATLG,DELETE),
 //            UNIT=SYSDA,SPACE=(CYL,(1,1),RLSE),
 //            DCB=(RECFM=FB,LRECL=80,BLKSIZE=0)
-
-
-//* ------------------------------------------------------------------
-//* ICEGENER = copia datasets usando o componente de copia do DFSORT.
-//* E uma alternativa de alto desempenho ao IEBGENER. A sintaxe abaixo
-//* usa SYSIN vazio, pois a operacao e uma copia simples.
-//* ------------------------------------------------------------------
-//XXXXXX   JOB (JEFF),'ICEGENER COPY',CLASS=A,MSGCLASS=X,REGION=6M
-//STEP1    EXEC PGM=ICEGENER
-//SYSOUT   DD SYSOUT=*
-//SYSPRINT DD SYSOUT=*
-//SYSIN    DD DUMMY
-//SYSUT1   DD DSN=XXXXXXXXXXXXXXXXXXXXXXXXXXXXX,DISP=SHR
-//SYSUT2   DD DSN=XXXXXXXXXXXXXXXXXXXX,DISP=(NEW,CATLG,DELETE),
-//            UNIT=SYSDA,SPACE=(CYL,(1,1),RLSE),
-//            DCB=(RECFM=FB,LRECL=80,BLKSIZE=0)
-
-
-//* ------------------------------------------------------------------
-//* SORT/ICEMAN = classifica, junta, copia e filtra registros.
-//* SYSIN contem os campos (posicao, tamanho e formato) usados na
-//* classificacao. O nome do programa pode ser SORT ou ICEMAN conforme
-//* a instalacao; DFSORT tambem aceita PGM=SORT.
-//* ------------------------------------------------------------------
-//XXXXXX   JOB (JEFF),'SORT DS',CLASS=A,MSGCLASS=X,REGION=6M
-//STEP1    EXEC PGM=SORT
-//SYSOUT   DD SYSOUT=*
-//SORTIN   DD DSN=XXXXXXXXXXXXXXXXXXXXXXXXXXXXX,DISP=SHR
-//SORTOUT  DD DSN=XXXXXXXXXXXXXXXXXXXX,DISP=(NEW,CATLG,DELETE),
-//            UNIT=SYSDA,SPACE=(CYL,(1,1),RLSE),
-//            DCB=(RECFM=FB,LRECL=80,BLKSIZE=0)
-//SYSIN    DD *
-  SORT FIELDS=(1,10,CH,A)
-/*
-
-//* Exemplo de filtro: manter registros cujo campo 1-3 seja igual a ABC.
-//* INCLUDE COND=(1,3,CH,EQ,C'ABC')
-//* OMIT    COND=(1,3,CH,EQ,C'ABC')
-
-
-//* ------------------------------------------------------------------
-//* ICETOOL = interface do DFSORT para relatorios e operacoes de analise,
-//* como contagem de registros, selecao e copia. COUNT gera um relatorio
-//* com a quantidade de registros do dataset de entrada.
-//* ------------------------------------------------------------------
-//XXXXXX   JOB (JEFF),'ICETOOL COUNT',CLASS=A,MSGCLASS=X,REGION=6M
-//STEP1    EXEC PGM=ICETOOL
-//TOOLMSG  DD SYSOUT=*
-//DFSMSG   DD SYSOUT=*
-//IN       DD DSN=XXXXXXXXXXXXXXXXXXXXXXXXXXXXX,DISP=SHR
-//TOOLIN   DD *
-  COUNT FROM(IN) WRITE(OUTCNT)
-//OUTCNT   DD SYSOUT=*
-/*
 
 
 //* ------------------------------------------------------------------
@@ -185,6 +101,29 @@
 
 
 //* ------------------------------------------------------------------
+//* SORT/ICEMAN = classifica, junta, copia e filtra registros.
+//* SYSIN contem os campos (posicao, tamanho e formato) usados na
+//* classificacao. O nome do programa pode ser SORT ou ICEMAN conforme
+//* a instalacao; DFSORT tambem aceita PGM=SORT.
+//* ------------------------------------------------------------------
+//XXXXXX   JOB (JEFF),'SORT DS',CLASS=A,MSGCLASS=X,REGION=6M
+//STEP1    EXEC PGM=SORT
+//SYSOUT   DD SYSOUT=*
+//SORTIN   DD DSN=XXXXXXXXXXXXXXXXXXXXXXXXXXXXX,DISP=SHR
+//SORTOUT  DD DSN=XXXXXXXXXXXXXXXXXXXX,DISP=(NEW,CATLG,DELETE),
+//            UNIT=SYSDA,SPACE=(CYL,(1,1),RLSE),
+//            DCB=(RECFM=FB,LRECL=80,BLKSIZE=0)
+//SYSIN    DD *
+  SORT FIELDS=(1,10,CH,A)
+/*
+
+//* Exemplo de filtro: manter registros cujo campo 1-3 seja igual a ABC.
+//* INCLUDE COND=(1,3,CH,EQ,C'ABC')
+//* OMIT    COND=(1,3,CH,EQ,C'ABC')
+
+
+
+//* ------------------------------------------------------------------
 //* IEBCOMPR = compara dois datasets sequenciais ou duas bibliotecas
 //* particionadas e informa diferencas no relatorio SYSPRINT.
 //* ------------------------------------------------------------------
@@ -195,22 +134,6 @@
 //SYSUT2   DD DSN=XXXXXXXXXXXXXXXXXXXX,DISP=SHR
 //SYSIN    DD *
   COMPARE TYPORG=PS
-/*
-
-
-//* ------------------------------------------------------------------
-//* IEBUPDTE = cria ou atualiza membros de uma biblioteca PDS/PDSE a
-//* partir de entrada sequencial. E util para aplicar pequenas alteracoes
-//* em membros, embora ISPF ou ferramentas de controle de versao sejam
-//* preferiveis no desenvolvimento diario.
-//* ------------------------------------------------------------------
-//XXXXXX   JOB (JEFF),'UPDATE MEMBER',CLASS=A,MSGCLASS=X,REGION=6M
-//STEP1    EXEC PGM=IEBUPDTE,PARM=NEW
-//SYSPRINT DD SYSOUT=*
-//SYSUT2   DD DSN=XXXXXXXXXXXXXXXXXXXX,DISP=SHR
-//SYSIN    DD *
-./ ADD NAME=MEMBRO1
-CONTEUDO DO MEMBRO AQUI
 /*
 
 
@@ -253,10 +176,9 @@ CONTEUDO DO MEMBRO AQUI
 
 
 //* ------------------------------------------------------------------
-//* DFSERA10 = utilitario historico do IMS para leitura/copia de dados.
+//* DFSERA10 = utilitario do IMS para leitura/copia de dados.
 //* Neste exemplo, a copia para ao atingir a quantidade indicada em
-//* STOPAFT. A disponibilidade e o comportamento podem variar por
-//* instalacao; para copias simples, prefira IEBGENER ou ICEGENER.
+//* STOPAFT; para copias simples, prefira IEBGENER ou ICEGENER.
 //* ------------------------------------------------------------------
 //XXXXXX   JOB (JEFF),'COPIA',CLASS=A,MSGCLASS=X,REGION=6M
 //STEP1    EXEC PGM=DFSERA10,TIME=100
@@ -267,21 +189,6 @@ CONTEUDO DO MEMBRO AQUI
 //            DCB=(RECFM=FB,LRECL=80,BLKSIZE=0)
 //SYSIN    DD *
   CONTROL CNTL STOPAFT=XXXX
-/*
-
-
-//* ------------------------------------------------------------------
-//* ADRDSSU = DFSMShsm Data Set Services. Faz dump, restore e copia de
-//* datasets/volumes, preservando atributos conforme as opcoes usadas.
-//* Requer autorizacao e deve ser usado conforme as politicas do storage.
-//* ------------------------------------------------------------------
-//XXXXXX   JOB (JEFF),'DSS COPY',CLASS=A,MSGCLASS=X,REGION=6M
-//STEP1    EXEC PGM=ADRDSSU
-//SYSPRINT DD SYSOUT=*
-//SYSIN    DD *
-  COPY DATASET(INCLUDE(XX.XXXXXX.ORIGEM)) -
-       OUTDATASET(XX.XXXXXX.DESTINO) -
-       TOL(ENQF)
 /*
 
 
@@ -298,15 +205,3 @@ CONTEUDO DO MEMBRO AQUI
   LISTCAT ENT(XX.XXXXXX.XXXXXX) ALL
 /*
 
-
-//* Observacoes:
-//* - Ajuste nomes, volumes, unidades, espaco, DCB e classes ao ambiente.
-//* - DISP=(NEW,CATLG,DELETE) exclui o dataset se o step falhar antes da
-//*   catalogacao; valide a politica desejada antes de executar em producao.
-//* - SYSUT1/SYSUT2 sao DD names convencionais; SYSIN contem o controle
-//*   do utilitario e SYSPRINT/SYSOUT normalmente recebem as mensagens.
-//* - ICEGENER, SORT/ICEMAN e ICETOOL dependem da instalacao do DFSORT.
-//* - IEHPROGM e um utilitario antigo; valide a sintaxe e autorizacoes no
-//*   ambiente antes de usa-lo.
-//* - A compressao com IEBCOPY e destinada a PDS; PDSE nao requer compressao.
-//* - Teste sempre em datasets temporarios e confira o retorno do job.
