@@ -209,15 +209,3 @@
   LISTCAT ENT(XX.XXXXXX.XXXXXX) ALL
 /*
 
-
-//* Observacoes:
-//* - Ajuste nomes, volumes, unidades, espaco, DCB e classes ao ambiente.
-//* - DISP=(NEW,CATLG,DELETE) exclui o dataset se o step falhar antes da
-//*   catalogacao; valide a politica desejada antes de executar em producao.
-//* - SYSUT1/SYSUT2 sao DD names convencionais; SYSIN contem o controle
-//*   do utilitario e SYSPRINT/SYSOUT normalmente recebem as mensagens.
-//* - ICEGENER, SORT/ICEMAN e ICETOOL dependem da instalacao do DFSORT.
-//* - IEHPROGM e um utilitario antigo; valide a sintaxe e autorizacoes no
-//*   ambiente antes de usa-lo.
-//* - A compressao com IEBCOPY e destinada a PDS; PDSE nao requer compressao.
-//* - Teste sempre em datasets temporarios e confira o retorno do job.
