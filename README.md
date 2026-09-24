@@ -1,11 +1,8 @@
 # JCL_Cookbook
-![Mainframe](https://img.shields.io/badge/IBM-z%2FOS-blue)
-![JCL](https://img.shields.io/badge/JCL-Batch%20Processing-green)
-
 
 ## Utilitários z/OS IBM 
 
-JOBS para manipulação de datasets, incluindo o gerenciamento de GDGs.
+O **`jcl_cookbook.jcl`** contem jobs para manipulação de datasets, incluindo o gerenciamento de GDGs.
 
 
 **Fluxo de um Job**
