@@ -13,6 +13,37 @@
 
 
 //* ------------------------------------------------------------------
+//* IEHPROGM = utilitario antigo de manutencao de datasets catalogados
+//* e do VTOC. Pode executar operacoes como SCRATCH, RENAME e UNCATLG.
+//* Em ambientes atuais, prefira IDCAMS ou IEFBR14 quando forem
+//* suficientes e confirme as regras de seguranca antes de usar.
+//* ------------------------------------------------------------------
+//* IEHPROGM = Excluir fisicamente um dataset (SCRATCH).
+//XXXXXX   JOB (JEFF),'IEHPROGM SCRATCH',CLASS=A,MSGCLASS=X,REGION=6M
+//STEP1    EXEC PGM=IEHPROGM
+//SYSPRINT DD SYSOUT=*
+//SYSIN    DD *
+  SCRATCH DSNAME=XX.XXXXXX.XXXXXX
+/*
+
+//* IEHPROGM = Retirar um dataset do catalogo sem excluir os dados.
+//XXXXXX   JOB (JEFF),'IEHPROGM UNCATLG',CLASS=A,MSGCLASS=X,REGION=6M
+//STEP1    EXEC PGM=IEHPROGM
+//SYSPRINT DD SYSOUT=*
+//SYSIN    DD *
+  UNCATLG DSNAME=XX.XXXXXX.XXXXXX
+/*
+
+//* IEHPROGM = Renomear um dataset catalogado.
+//XXXXXX   JOB (JEFF),'IEHPROGM RENAME',CLASS=A,MSGCLASS=X,REGION=6M
+//STEP1    EXEC PGM=IEHPROGM
+//SYSPRINT DD SYSOUT=*
+//SYSIN    DD *
+  RENAME DSNAME=XX.XXXXXX.ORIGEM,NEWNAME=XX.XXXXXX.DESTINO
+/*
+
+
+//* ------------------------------------------------------------------
 //* IEBGENER = copia sequencialmente registros de um dataset para outro.
 //* Tambem pode gerar um dataset a partir de SYSIN e fazer pequenas
 //* alteracoes com parametros de controle. Para copias de grande volume,
@@ -91,9 +122,12 @@
 
 
 //* ------------------------------------------------------------------
-//* IEBCOPY = copia, comprime e mantem bibliotecas particionadas (PDS e
-//* PDSE). Pode copiar todos os membros ou selecionar membros especificos.
+//* IEBCOPY = copia e mantem bibliotecas particionadas PDS e PDSE.
+//* Pode copiar todos os membros ou selecionar/excluir membros.
+//* A compressao in-place e aplicavel a PDS; PDSE administra o espaco
+//* automaticamente e nao precisa da mesma compressao.
 //* ------------------------------------------------------------------
+//* IEBCOPY = Copiar todos os membros de uma biblioteca.
 //XXXXXX   JOB (JEFF),'COPY PDS',CLASS=A,MSGCLASS=X,REGION=6M
 //STEP1    EXEC PGM=IEBCOPY
 //SYSPRINT DD SYSOUT=*
@@ -105,8 +139,36 @@
   COPY INDD=SYSUT1,OUTDD=SYSUT2
 /*
 
-//* Selecionar membros: substitua MEM1 e MEM2 pelos membros desejados.
-//* SELECT MEMBER=(MEM1,MEM2)
+//* IEBCOPY = Copiar somente membros selecionados.
+//XXXXXX   JOB (JEFF),'COPY MEMBERS',CLASS=A,MSGCLASS=X,REGION=6M
+//STEP1    EXEC PGM=IEBCOPY
+//SYSPRINT DD SYSOUT=*
+//SYSUT1   DD DSN=XXXXXXXXXXXXXXXXXXXXXXXXXXXXX,DISP=SHR
+//SYSUT2   DD DSN=XXXXXXXXXXXXXXXXXXXX,DISP=SHR
+//SYSIN    DD *
+  COPY INDD=SYSUT1,OUTDD=SYSUT2
+  SELECT MEMBER=(MEMBRO1,MEMBRO2,MEMBRO3)
+/*
+
+//* IEBCOPY = Copiar todos, exceto membros selecionados.
+//XXXXXX   JOB (JEFF),'EXCLUDE MEMBERS',CLASS=A,MSGCLASS=X,REGION=6M
+//STEP1    EXEC PGM=IEBCOPY
+//SYSPRINT DD SYSOUT=*
+//SYSUT1   DD DSN=XXXXXXXXXXXXXXXXXXXXXXXXXXXXX,DISP=SHR
+//SYSUT2   DD DSN=XXXXXXXXXXXXXXXXXXXX,DISP=SHR
+//SYSIN    DD *
+  COPY INDD=SYSUT1,OUTDD=SYSUT2
+  EXCLUDE MEMBER=(MEMBRO1,MEMBRO2)
+/*
+
+//* IEBCOPY = Comprimir uma biblioteca PDS no proprio dataset.
+//XXXXXX   JOB (JEFF),'COMPRESS PDS',CLASS=A,MSGCLASS=X,REGION=6M
+//STEP1    EXEC PGM=IEBCOPY
+//SYSPRINT DD SYSOUT=*
+//SYSUT1   DD DSN=XXXXXXXXXXXXXXXXXXXXXXXXXXXXX,DISP=OLD
+//SYSIN    DD *
+  COPY INDD=SYSUT1,OUTDD=SYSUT1
+/*
 
 
 //* ------------------------------------------------------------------
@@ -231,4 +293,7 @@ CONTEUDO DO MEMBRO AQUI
 //* - SYSUT1/SYSUT2 sao DD names convencionais; SYSIN contem o controle
 //*   do utilitario e SYSPRINT/SYSOUT normalmente recebem as mensagens.
 //* - ICEGENER, SORT/ICEMAN e ICETOOL dependem da instalacao do DFSORT.
+//* - IEHPROGM e um utilitario antigo; valide a sintaxe e autorizacoes no
+//*   ambiente antes de usa-lo.
+//* - A compressao com IEBCOPY e destinada a PDS; PDSE nao requer compressao.
 //* - Teste sempre em datasets temporarios e confira o retorno do job.
