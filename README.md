@@ -1,6 +1,4 @@
-# JCL_Cookbook
-
-## Utilitários z/OS IBM 
+## JCL_Cookbook
 
 O **`jcl_cookbook.jcl`** contem jobs que são utilitários IBM para manipulação de datasets, incluindo o gerenciamento de GDGs em Mainframes z/OS.
 
