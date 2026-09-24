@@ -45,9 +45,10 @@
 
 //* ------------------------------------------------------------------
 //* IEBGENER = copia sequencialmente registros de um dataset para outro.
-//* Tambem pode gerar um dataset a partir de SYSIN e fazer pequenas
-//* alteracoes com parametros de controle. Para copias de grande volume,
-//* ICEGENER (quando disponivel) normalmente oferece melhor desempenho.
+//* Tambem pode gerar um dataset a partir de SYSIN, enviar para SYSOUT,
+//* e concatenar varios datasets em um unico arquivo de saida.
+//* Para copias de grande volume, ICEGENER (quando disponivel) normalmente
+//* oferece melhor desempenho.
 //* ------------------------------------------------------------------
 //XXXXXX   JOB (JEFF),'COPIA DS',CLASS=A,MSGCLASS=X,REGION=6M
 //STEP1    EXEC PGM=IEBGENER
@@ -65,6 +66,18 @@
 //SYSIN    DD DUMMY
 //SYSUT1   DD DSN=XXXXXXXXXXXXXXXXXXXXXXXXXXXXX,DISP=SHR
 //SYSUT2   DD SYSOUT=*
+
+//* IEBGENER = concatenar varios datasets em um unico arquivo de saida.
+//XXXXXX   JOB (JEFF),'CONCAT DS',CLASS=A,MSGCLASS=X,REGION=6M
+//STEP1    EXEC PGM=IEBGENER
+//SYSPRINT DD SYSOUT=*
+//SYSIN    DD DUMMY
+//SYSUT1   DD DSN=XXXXXXXXXXXXXXXXXXXXXXXXXXXXX,DISP=SHR
+//         DD DSN=XXXXXXXXXXXXXXXXXXXXXXXXXXXXX,DISP=SHR
+//         DD DSN=XXXXXXXXXXXXXXXXXXXXXXXXXXXXX,DISP=SHR
+//SYSUT2   DD DSN=XXXXXXXXXXXXXXXXXXXX,DISP=(NEW,CATLG,DELETE),
+//            UNIT=SYSDA,SPACE=(CYL,(1,1),RLSE),
+//            DCB=(RECFM=FB,LRECL=80,BLKSIZE=0)
 
 
 //* ------------------------------------------------------------------
