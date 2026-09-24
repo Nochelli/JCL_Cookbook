@@ -122,7 +122,6 @@
 //* OMIT    COND=(1,3,CH,EQ,C'ABC')
 
 
-
 //* ------------------------------------------------------------------
 //* IEBCOMPR = compara dois datasets sequenciais ou duas bibliotecas
 //* particionadas e informa diferencas no relatorio SYSPRINT.
@@ -140,6 +139,9 @@
 //* ------------------------------------------------------------------
 //* IDCAMS = utilitario de catalogo e VSAM. Permite definir, listar,
 //* excluir e alterar objetos catalogados, incluindo clusters VSAM e GDG.
+//* LISTCAT lista informacoes do catalogo sobre datasets, aliases, GDG e VSAM.
+//* REPRO copia registros entre arquivos VSAM ou entre VSAM e datasets
+//* sequenciais, sendo util para carga, copia e migracao de dados.
 //* ------------------------------------------------------------------
 //XXXXXX   JOB (JEFF),'DELETAR GDG',CLASS=A,MSGCLASS=X,REGION=6M
 //STEP1    EXEC PGM=IDCAMS
@@ -158,6 +160,7 @@
               SCRATCH)
 /*
 
+//* LISTCAT = listar informacoes de um dataset/cluster no catalogo.
 //XXXXXX   JOB (JEFF),'LISTCAT',CLASS=A,MSGCLASS=X,REGION=6M
 //STEP1    EXEC PGM=IDCAMS
 //SYSPRINT DD SYSOUT=*
@@ -165,6 +168,7 @@
   LISTCAT ENT(XX.XXXXXX.XXXXXX) ALL
 /*
 
+//* REPRO = copiar registros de um arquivo para outro.
 //XXXXXX   JOB (JEFF),'REPRO',CLASS=A,MSGCLASS=X,REGION=6M
 //STEP1    EXEC PGM=IDCAMS
 //SYSPRINT DD SYSOUT=*
@@ -205,3 +209,15 @@
   LISTCAT ENT(XX.XXXXXX.XXXXXX) ALL
 /*
 
+
+//* Observacoes:
+//* - Ajuste nomes, volumes, unidades, espaco, DCB e classes ao ambiente.
+//* - DISP=(NEW,CATLG,DELETE) exclui o dataset se o step falhar antes da
+//*   catalogacao; valide a politica desejada antes de executar em producao.
+//* - SYSUT1/SYSUT2 sao DD names convencionais; SYSIN contem o controle
+//*   do utilitario e SYSPRINT/SYSOUT normalmente recebem as mensagens.
+//* - ICEGENER, SORT/ICEMAN e ICETOOL dependem da instalacao do DFSORT.
+//* - IEHPROGM e um utilitario antigo; valide a sintaxe e autorizacoes no
+//*   ambiente antes de usa-lo.
+//* - A compressao com IEBCOPY e destinada a PDS; PDSE nao requer compressao.
+//* - Teste sempre em datasets temporarios e confira o retorno do job.
