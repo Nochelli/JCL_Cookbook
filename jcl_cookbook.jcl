@@ -1,15 +1,12 @@
 //* ------------------------------------------------------------------
 //* IEFBR14 = utilitario nulo. Nao processa registros; e usado com DD
 //* para criar, catalogar ou excluir datasets (DS).
-//* ------------------------------------------------------------------
-//* IEFBR14 = Criar um DS.
 //XXXXXX   JOB (JEFF),'CREATE DS',CLASS=A,MSGCLASS=X,REGION=6M
 //STEP1    EXEC PGM=IEFBR14
 //DD1      DD DSN=XXXXXX.XXXXXX.XXXXXX,DISP=(NEW,CATLG,DELETE),
 //            SPACE=(CYL,(1,1)),UNIT=SYSDA,
 //            DCB=(RECFM=FB,LRECL=80,BLKSIZE=0)
 
-//* IEFBR14 = Excluir um DS.
 //XXXXXX   JOB (JEFF),'DELETE DS',CLASS=A,MSGCLASS=X,REGION=6M
 //STEP1    EXEC PGM=IEFBR14
 //DD1      DD DSN=XXXXXX.XXXXXX.XXXXXX,DISP=(OLD,DELETE)
@@ -21,7 +18,6 @@
 //* alteracoes com parametros de controle. Para copias de grande volume,
 //* ICEGENER (quando disponivel) normalmente oferece melhor desempenho.
 //* ------------------------------------------------------------------
-//* IEBGENER = Copiar um DS.
 //XXXXXX   JOB (JEFF),'COPIA DS',CLASS=A,MSGCLASS=X,REGION=6M
 //STEP1    EXEC PGM=IEBGENER
 //SYSPRINT DD SYSOUT=*
@@ -31,13 +27,20 @@
 //            UNIT=SYSDA,SPACE=(CYL,(1,1),RLSE),
 //            DCB=(RECFM=FB,LRECL=80,BLKSIZE=0)
 
+//* IEBGENER = enviar o conteudo de um DS para a SYSOUT.
+//XXXXXX   JOB (JEFF),'DS PARA SYSOUT',CLASS=A,MSGCLASS=X,REGION=6M
+//STEP1    EXEC PGM=IEBGENER
+//SYSPRINT DD SYSOUT=*
+//SYSIN    DD DUMMY
+//SYSUT1   DD DSN=XXXXXXXXXXXXXXXXXXXXXXXXXXXXX,DISP=SHR
+//SYSUT2   DD SYSOUT=*
+
 
 //* ------------------------------------------------------------------
 //* ICEGENER = copia datasets usando o componente de copia do DFSORT.
 //* E uma alternativa de alto desempenho ao IEBGENER. A sintaxe abaixo
 //* usa SYSIN vazio, pois a operacao e uma copia simples.
 //* ------------------------------------------------------------------
-//* ICEGENER = Copiar um DS.
 //XXXXXX   JOB (JEFF),'ICEGENER COPY',CLASS=A,MSGCLASS=X,REGION=6M
 //STEP1    EXEC PGM=ICEGENER
 //SYSOUT   DD SYSOUT=*
@@ -55,7 +58,6 @@
 //* classificacao. O nome do programa pode ser SORT ou ICEMAN conforme
 //* a instalacao; DFSORT tambem aceita PGM=SORT.
 //* ------------------------------------------------------------------
-//* SORT = Ordenar um DS por um campo crescente.
 //XXXXXX   JOB (JEFF),'SORT DS',CLASS=A,MSGCLASS=X,REGION=6M
 //STEP1    EXEC PGM=SORT
 //SYSOUT   DD SYSOUT=*
@@ -77,7 +79,6 @@
 //* como contagem de registros, selecao e copia. COUNT gera um relatorio
 //* com a quantidade de registros do dataset de entrada.
 //* ------------------------------------------------------------------
-//* ICETOOL = Contar registros de um DS.
 //XXXXXX   JOB (JEFF),'ICETOOL COUNT',CLASS=A,MSGCLASS=X,REGION=6M
 //STEP1    EXEC PGM=ICETOOL
 //TOOLMSG  DD SYSOUT=*
@@ -93,7 +94,6 @@
 //* IEBCOPY = copia, comprime e mantem bibliotecas particionadas (PDS e
 //* PDSE). Pode copiar todos os membros ou selecionar membros especificos.
 //* ------------------------------------------------------------------
-//* IEBCOPY = Copiar uma biblioteca PDS/PDSE.
 //XXXXXX   JOB (JEFF),'COPY PDS',CLASS=A,MSGCLASS=X,REGION=6M
 //STEP1    EXEC PGM=IEBCOPY
 //SYSPRINT DD SYSOUT=*
@@ -113,7 +113,6 @@
 //* IEBCOMPR = compara dois datasets sequenciais ou duas bibliotecas
 //* particionadas e informa diferencas no relatorio SYSPRINT.
 //* ------------------------------------------------------------------
-//* IEBCOMPR = Comparar dois DS.
 //XXXXXX   JOB (JEFF),'COMPARE DS',CLASS=A,MSGCLASS=X,REGION=6M
 //STEP1    EXEC PGM=IEBCOMPR
 //SYSPRINT DD SYSOUT=*
@@ -130,7 +129,6 @@
 //* em membros, embora ISPF ou ferramentas de controle de versao sejam
 //* preferiveis no desenvolvimento diario.
 //* ------------------------------------------------------------------
-//* IEBUPDTE = Criar/atualizar membro de uma biblioteca.
 //XXXXXX   JOB (JEFF),'UPDATE MEMBER',CLASS=A,MSGCLASS=X,REGION=6M
 //STEP1    EXEC PGM=IEBUPDTE,PARM=NEW
 //SYSPRINT DD SYSOUT=*
@@ -145,7 +143,6 @@ CONTEUDO DO MEMBRO AQUI
 //* IDCAMS = utilitario de catalogo e VSAM. Permite definir, listar,
 //* excluir e alterar objetos catalogados, incluindo clusters VSAM e GDG.
 //* ------------------------------------------------------------------
-//* IDCAMS = Excluir um GDG Base.
 //XXXXXX   JOB (JEFF),'DELETAR GDG',CLASS=A,MSGCLASS=X,REGION=6M
 //STEP1    EXEC PGM=IDCAMS
 //SYSPRINT DD SYSOUT=*
@@ -153,7 +150,6 @@ CONTEUDO DO MEMBRO AQUI
   DELETE XX.XXXXXX.XXXXXX GDG FORCE
 /*
 
-//* IDCAMS = Criar um GDG Base.
 //XXXXXX   JOB (JEFF),'CRIAR GDG',CLASS=A,MSGCLASS=X,REGION=6M
 //STEP1    EXEC PGM=IDCAMS
 //SYSPRINT DD SYSOUT=*
@@ -164,7 +160,6 @@ CONTEUDO DO MEMBRO AQUI
               SCRATCH)
 /*
 
-//* IDCAMS = Listar atributos de um dataset ou cluster.
 //XXXXXX   JOB (JEFF),'LISTCAT',CLASS=A,MSGCLASS=X,REGION=6M
 //STEP1    EXEC PGM=IDCAMS
 //SYSPRINT DD SYSOUT=*
@@ -172,7 +167,6 @@ CONTEUDO DO MEMBRO AQUI
   LISTCAT ENT(XX.XXXXXX.XXXXXX) ALL
 /*
 
-//* IDCAMS = Copiar um VSAM ou PS com REPRO.
 //XXXXXX   JOB (JEFF),'REPRO',CLASS=A,MSGCLASS=X,REGION=6M
 //STEP1    EXEC PGM=IDCAMS
 //SYSPRINT DD SYSOUT=*
@@ -189,7 +183,6 @@ CONTEUDO DO MEMBRO AQUI
 //* STOPAFT. A disponibilidade e o comportamento podem variar por
 //* instalacao; para copias simples, prefira IEBGENER ou ICEGENER.
 //* ------------------------------------------------------------------
-//* DFSERA10 = Copiar um DS ate determinada linha.
 //XXXXXX   JOB (JEFF),'COPIA',CLASS=A,MSGCLASS=X,REGION=6M
 //STEP1    EXEC PGM=DFSERA10,TIME=100
 //SYSPRINT DD DUMMY
@@ -207,7 +200,6 @@ CONTEUDO DO MEMBRO AQUI
 //* datasets/volumes, preservando atributos conforme as opcoes usadas.
 //* Requer autorizacao e deve ser usado conforme as politicas do storage.
 //* ------------------------------------------------------------------
-//* ADRDSSU = Copiar um DS para outro nome.
 //XXXXXX   JOB (JEFF),'DSS COPY',CLASS=A,MSGCLASS=X,REGION=6M
 //STEP1    EXEC PGM=ADRDSSU
 //SYSPRINT DD SYSOUT=*
@@ -223,7 +215,6 @@ CONTEUDO DO MEMBRO AQUI
 //* para rodar programas/utilitarios TSO, SQL via DSN (DB2), ou comandos
 //* TSO. O conteudo de SYSTSIN depende do produto chamado.
 //* ------------------------------------------------------------------
-//* IKJEFT01 = Executar comando TSO em batch.
 //XXXXXX   JOB (JEFF),'TSO BATCH',CLASS=A,MSGCLASS=X,REGION=6M
 //STEP1    EXEC PGM=IKJEFT01
 //SYSPRINT DD SYSOUT=*
