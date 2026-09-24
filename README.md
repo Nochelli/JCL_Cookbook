@@ -2,7 +2,7 @@
 
 ## Utilitários z/OS IBM 
 
-O **`jcl_cookbook.jcl`** contem jobs para manipulação de datasets, incluindo o gerenciamento de GDGs.
+O **`jcl_cookbook.jcl`** contem jobs que são utilitários IBM para manipulação de datasets, incluindo o gerenciamento de GDGs em Mainframes z/OS.
 
 
 **Fluxo de um Job**
